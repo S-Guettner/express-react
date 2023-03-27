@@ -1,33 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [firstName,setFirstName] = useState()
+  const [lastName,setLastName] = useState()
+  const [email,setEmail] = useState()
+  const [message,setMessage] = useState()
+
+  const eventHandler = (e) => {
+    e.preventDefault()
+
+    const messageInfo = {
+      firstName,
+      lastName,
+      email,
+      message
+    }
+
+    fetch(`http://localhost:8787/message/` , {
+      method: "POST",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: messageInfo
+    })
+
+      
+
+
+  }
+
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="App flex justify-center items-center h-screen">
+      <form>
+        <input onChange={(e) => setFirstName(e.target.value)} className="border-2 block m-2 w-full" type="text" name="firstName" id="firstName" placeholder="Vorname" />
+        <input onChange={(e) => setLastName(e.target.value)} className="border-2 block m-2 w-full" type="text" name="lastName" id="lastName" placeholder="Nachname" />
+        <input onChange={(e) => setEmail(e.target.value)} className="border-2 block m-2 w-full" type="email" name="email" id="email" placeholder="email" />
+        <input onChange={(e) => setMessage(e.target.value)} className="border-2 block m-2 w-full" type="text" name="message" id="message" placeholder="Nachricht" />
+        <button onClick={eventHandler} className="border-2 block m-2 w-full">senden</button>
+      </form>
     </div>
   )
 }
