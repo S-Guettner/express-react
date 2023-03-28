@@ -12,18 +12,18 @@ function App() {
     e.preventDefault()
 
     const messageInfo = {
-      firstName,
-      lastName,
-      email,
-      message
+      fn:firstName,
+      ln:lastName,
+      mail:email,
+      m:message
     }
 
-    fetch(`http://localhost:8787/message/` , {
+    fetch(`http://localhost:8787/` , {
       method: "POST",
       headers:{
         "Content-Type": "application/json"
       },
-      body: messageInfo
+      body: JSON.stringify(messageInfo)
     })
 
       

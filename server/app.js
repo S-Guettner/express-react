@@ -5,10 +5,10 @@ import cors from 'cors'
 const app = express()
 const PORT = 8787
 
+app.use(express.json())
 
 
-
-app.use(cors({ origin: "http://localhost:5173/message/" }))
+app.use(cors({ origin: "http://localhost:5173" }))
 
 
 app.post("/", (req, res) => {
