@@ -1,8 +1,15 @@
 
 
-const Comments = () => {
+const Comments = (props) => {
     return ( 
-        <h1>comment</h1>
+        <div className="flex justify-center mb-10">
+        <div>
+            <p>{props.firstName}</p>
+            <p>{props.lastName}</p>
+            <p>{props.email}</p>
+            <p>{props.message}</p>
+        </div>
+        </div>
      );
 }
  

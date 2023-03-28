@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { v4 as uuidv4 } from 'uuid';
 import Comments from "./components/Comments"
 
 function App() {
@@ -7,9 +8,10 @@ function App() {
   const [lastName,setLastName] = useState()
   const [email,setEmail] = useState()
   const [message,setMessage] = useState()
-  const guestBookComments = []
+  const [guestBookComments,setGuestBookComments] = useState([])
 
   const eventHandler = (e) => {
+    
     e.preventDefault()
 
     const messageInfo = {
@@ -32,7 +34,7 @@ function App() {
     .then(data => {
       /* console.log(data) */
       data?.map((comment) => {
-        guestBookComments.push(comment)
+        setGuestBookComments([...guestBookComments, comment])
         console.log(guestBookComments)
 
       })
@@ -56,7 +58,13 @@ function App() {
         {guestBookComments.map((item) => {
           console.log(item)
           return(
-            <h1>test</h1>
+            <Comments 
+              key={uuidv4()}
+              firstName={item.fn}
+              lastName={item.ln}
+              email={item.mail}
+              message={item.m}
+            />
           )
         })}
       </section>
