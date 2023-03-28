@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { v4 as uuidv4 } from 'uuid';
 import Comments from "./components/Comments"
 
@@ -28,18 +28,31 @@ function App() {
       },
       body: JSON.stringify(messageInfo)
     })
+    
+    .then(res => res.json())
+    .then(data => {
+      /* console.log(data) */
+      console.log(guestBookComments)
+      data?.map((comment) => {
+        setGuestBookComments([...guestBookComments, comment])
+      })
+      console.log(guestBookComments)
+    })
 
+  }
+
+  useEffect(() => {
     fetch(`http://localhost:8787/api/v1/guestbook`)
     .then(res => res.json())
     .then(data => {
       /* console.log(data) */
+      console.log(guestBookComments)
       data?.map((comment) => {
         setGuestBookComments([...guestBookComments, comment])
-        console.log(guestBookComments)
-
       })
+      console.log(guestBookComments)
     })
-  }
+  },[])
 
   
   return (

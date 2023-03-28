@@ -15,7 +15,7 @@ app.post("/", (req, res) => {
     const data = req.body
     DB.push(data)
     console.log(DB)
-    res.end()
+    res.json(DB)
 })
 
 app.get("/api/v1/guestbook", (req,res) => {
